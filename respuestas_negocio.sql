@@ -108,7 +108,7 @@ BEGIN
         DataAtualizacao
     FROM 
         Item
-    WHERE -- Inclui apenas itens atualizados hoje
+    WHERE -- Insere apenas itens atualizados hoje
         YEAR(DataAtualizacao) = YEAR(GETDATE())
         AND MONTH(DataAtualizacao) = MONTH(GETDATE())
         AND DAY(DataAtualizacao) = DAY(GETDATE())
