@@ -32,8 +32,10 @@ CREATE TABLE Item (
     ID INT PRIMARY KEY,
     CustomerID INT,
     CategoryID INT,
-    NomeItem VARCHAR(255),
+    Produto VARCHAR(255),
+    Preco FLOAT,
     DataEntrada DATE,
+    DataAtualizacao DATE,
     DataRemocao DATE NULL,
     Status INT NULL,
     FOREIGN KEY (CustomerID) REFERENCES Customer(ID),
@@ -49,9 +51,21 @@ CREATE TABLE [Order] (
     ID INT PRIMARY KEY,
     CustomerID INT,
     ItemID INT,
+    DataOrdem DATE,
     Quantidade INT,
     Valor FLOAT,
     FOREIGN KEY (CustomerID) REFERENCES Customer(ID),
     FOREIGN KEY (ItemID) REFERENCES Item(ID),
     CONSTRAINT CHK_Order_Quantidade CHECK (Quantidade > 0)
+);
+
+-- Cria tabela que será responsável por receber os dados históricos da tabela Item
+CREATE TABLE DailyItemStatus (
+    ItemID INT NOT NULL,
+    CustomerID INT,
+    CategoryID INT,
+    NomeItem VARCHAR(255),
+    Preco FLOAT,
+    Status VARCHAR(255),
+    DataAtualizacao DATE
 );
