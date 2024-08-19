@@ -104,6 +104,7 @@ BEGIN
         CategoryID,
         NomeItem,
         Preco,
+        Condicao,
         Status,
         DataAtualizacao
     FROM 

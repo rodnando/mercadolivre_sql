@@ -37,6 +37,7 @@ CREATE TABLE Item (
     DataEntrada DATE,
     DataAtualizacao DATE,
     DataRemocao DATE NULL,
+    Condicao VARCHAR(255),
     Status INT NULL,
     FOREIGN KEY (CustomerID) REFERENCES Customer(ID),
     FOREIGN KEY (CategoryID) REFERENCES Category(ID)
@@ -66,6 +67,7 @@ CREATE TABLE DailyItemStatus (
     CategoryID INT,
     NomeItem VARCHAR(255),
     Preco FLOAT,
+    Condicao VARCHAR(255),
     Status VARCHAR(255),
     DataAtualizacao DATE
 );
