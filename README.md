@@ -4,7 +4,7 @@ Projeto desenvolvido para a primeira parte do desafio do Mercado Livre.
 
 A DER abaixo foi desenhada com o objetivo de atender as regras e responder as questões de negócio passadas no desafio.
 
-!(imagens/ML_DER.png)
+![DER Mercado Livre](imagens/ML_DER.png)
 
 **Tabela Customer**: Armazena informações sobre todos os clientes cadastrados no site.
 **Tabela Category**: Armazena as categorias para os itens.
