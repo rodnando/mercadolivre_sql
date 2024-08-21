@@ -96,23 +96,35 @@ ORDER BY
 CREATE PROCEDURE UpdateDailyItemStatus
 AS
 BEGIN
-    -- Insere os registros com o último status informado
-    INSERT INTO DailyItemStatus (ItemID, CustomerID, CategoryID, NomeItem, Preco, Status, DataAtualizacao)
-    SELECT 
-        ID AS ItemID,
-        CustomerID,
-        CategoryID,
-        NomeItem,
-        Preco,
-        Condicao,
-        Status,
-        DataAtualizacao
-    FROM 
-        Item
-    WHERE -- Insere apenas itens atualizados hoje
-        YEAR(DataAtualizacao) = YEAR(GETDATE())
-        AND MONTH(DataAtualizacao) = MONTH(GETDATE())
-        AND DAY(DataAtualizacao) = DAY(GETDATE())
-    -- Confirma a transação para garantir que os dados são persistidos
-    COMMIT;
+    -- Inicia a transação
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Insere os registros com o último status informado
+        INSERT INTO DailyItemStatus (ItemID, CustomerID, CategoryID, NomeItem, Preco, Status, DataAtualizacao)
+        SELECT 
+            ID AS ItemID,
+            CustomerID,
+            CategoryID,
+            NomeItem,
+            Preco,
+            Condicao,
+            Status,
+            DataAtualizacao
+        FROM 
+            Item
+        WHERE 
+            -- Insere apenas itens atualizados hoje
+            YEAR(DataAtualizacao) = YEAR(GETDATE())
+            AND MONTH(DataAtualizacao) = MONTH(GETDATE())
+            AND DAY(DataAtualizacao) = DAY(GETDATE());
+
+        -- Confirma a transação para garantir que os dados são persistidos
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        -- Em caso de erro, faz o rollback da transação
+        ROLLBACK TRANSACTION;
+        
+    END CATCH;
 END;
